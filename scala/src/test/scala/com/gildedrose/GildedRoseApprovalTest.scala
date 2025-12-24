@@ -16,7 +16,7 @@ class GildedRoseApprovalTest {
   def foo(): Unit = {
 
     val items: Array[Item] = Array(Item("foo", 0, 0))
-    val app: GildedRose    = new GildedRose(items)
+    val app: GildedRose = new GildedRose(items)
     app.updateQuality()
 
     Approvals.verifyAll("Items", items)
