@@ -66,8 +66,9 @@ class GildedRose(val items: Array[Item]) {
             if (items(i).quality > 0) {
               // Other
               if (!items(i).name.equals("Sulfuras, Hand of Ragnaros")) {
-                // Conjured no need for additional degradation if it is negative
-                if (!items(i).name.equals("Conjured Mana Cake")) {
+                items(i).quality = items(i).quality - 1
+                // Conjured degrades twice as fast
+                if (items(i).name.equals("Conjured Mana Cake")) {
                   items(i).quality = items(i).quality - 1
                 }
               }

@@ -77,7 +77,7 @@ class GildedRoseTest extends AnyFlatSpec with Matchers {
   it should "givenConjuredManaCakeAndNegativeSellInThenSellInDecreasesAndQualityDegradesTwiceAsFast" in {
     updateItemOnce(Item("Conjured Mana Cake", -1, 5))(
       0
-    ) shouldBe Item("Conjured Mana Cake", -2, 3)
+    ) shouldBe Item("Conjured Mana Cake", -2, 1)
   }
 }
 
