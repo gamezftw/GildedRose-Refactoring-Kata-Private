@@ -34,8 +34,20 @@ class GildedRoseTest extends AnyFlatSpec with Matchers {
     updateItemOnce(Item("foo", 1, 5))(0) shouldBe Item("foo", 0, 4)
   }
 
+  it should "givenNoramalItemAndQualityAboveMaxThenQualityIsClamped" in {
+    updateItemOnce(Item("foo", 5, 52))(0) shouldBe Item("foo", 4, 50)
+  }
+
   it should "givenZeroQualityAndNoramalItemThenQualityIsNotNegative" in {
     updateItemOnce(Item("foo", 5, 0))(0) shouldBe Item("foo", 4, 0)
+  }
+
+  it should "givenZSulfurasAndQualityAboveMaxThenQualityIsClamped" in {
+    updateItemOnce(Item("Sulfuras, Hand of Ragnaros", 5, 81))(0) shouldBe Item(
+      "Sulfuras, Hand of Ragnaros",
+      5,
+      80
+    )
   }
 
   it should "sulfurasDoesNotDecreaseSellInAndQualityIs80" in {
