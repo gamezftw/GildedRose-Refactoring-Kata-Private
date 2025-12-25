@@ -26,6 +26,14 @@ class GildedRoseTest extends AnyFlatSpec with Matchers {
     updateItemOnce(Item("foo", -1, 5))(0) shouldBe Item("foo", -2, 3)
   }
 
+  it should "givenZeroSellInAndNoramalItemQualityDegradesTwiceAsFast" in {
+    updateItemOnce(Item("foo", 0, 5))(0) shouldBe Item("foo", -1, 3)
+  }
+
+  it should "givenOneSellInAndNoramalItemQualityDegradesOnce" in {
+    updateItemOnce(Item("foo", 1, 5))(0) shouldBe Item("foo", 0, 4)
+  }
+
   it should "givenZeroQualityAndNoramalItemThenQualityIsNotNegative" in {
     updateItemOnce(Item("foo", 5, 0))(0) shouldBe Item("foo", 4, 0)
   }
