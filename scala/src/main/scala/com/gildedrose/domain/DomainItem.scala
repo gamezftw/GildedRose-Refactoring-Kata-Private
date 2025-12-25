@@ -1,10 +1,14 @@
 package com.gildedrose.domain
 
-abstract class DomainItem(val name: String, var sellIn: Int, var quality: Int) {
-
-  protected val minQuality = 0
-  protected val maxQuality = 50
+abstract class DomainItem(
+    val name: String,
+    var sellIn: Int,
+    val initialQuality: Int
+) {
+  protected val minQuality: Int = 0
+  protected val maxQuality: Int = 50
   protected val degradeValue: Int = 1
+  var quality: Int = clampedQuality(initialQuality)
 
   def updateQuality(): Unit = {
     updateSellIn()
@@ -12,12 +16,12 @@ abstract class DomainItem(val name: String, var sellIn: Int, var quality: Int) {
   }
 
   def updateSellIn(): Unit = {
-    sellIn = sellIn - 1
+    sellIn -= 1
   }
 
   def degrade(): Unit = {
     val potentialQuality = getPotentialQuality
-    quality = Math.min(maxQuality, Math.max(minQuality, potentialQuality))
+    quality = clampedQuality(potentialQuality)
   }
 
   def getPotentialQuality: Int = {
@@ -26,6 +30,9 @@ abstract class DomainItem(val name: String, var sellIn: Int, var quality: Int) {
 
     quality - calculatedDegadeValue
   }
+
+  protected def clampedQuality(potentialQuality: Int): Int =
+    potentialQuality.max(minQuality).min(maxQuality)
 }
 
 object DomainItem {
