@@ -2,6 +2,7 @@ package com.gildedrose
 
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
+import com.gildedrose.ItemConstants.conjuredMakaCake
 
 class GildedRoseTest extends AnyFlatSpec with Matchers {
 
@@ -24,8 +25,12 @@ class GildedRoseTest extends AnyFlatSpec with Matchers {
     updateItemOnce(Item(normalItem, 1, 5))(0) shouldBe Item(normalItem, 0, 4)
   }
 
-  it should "givenNoramalItemAndQualityAboveMaxThenQualityIsClamped" in {
-    updateItemOnce(Item(normalItem, 5, 52))(0) shouldBe Item(normalItem, 4, 50)
+  it should "givenNoramalItemAndQualityAboveMaxThenQualityIsClampedAndDecreased" in {
+    updateItemOnce(Item(normalItem, 5, 52))(0) shouldBe Item(normalItem, 4, 49)
+  }
+
+  it should "givenConjuredManaCakeAndQualityAboveMaxThenQualityIsClampedAndDecreased" in {
+    updateItemOnce(Item(conjuredMakaCake, 5, 52))(0) shouldBe Item(conjuredMakaCake, 4, 48)
   }
 
   it should "givenZeroQualityAndNoramalItemThenQualityIsNotNegative" in {
