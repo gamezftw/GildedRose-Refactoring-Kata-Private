@@ -1,4 +1,11 @@
 package com.gildedrose.domain
 
-class OtherItem(n: String, s: SellInState, q: Int)
-    extends DomainItem(n, s, q) {}
+case class OtherItem(n: String, s: SellInState, q: Int)
+    extends DomainItem(n, s, q) {
+
+  protected def copy(
+      name: String,
+      sellIn: SellInState,
+      quality: Int
+  ): DomainItem = OtherItem(name, sellIn, quality)
+}

@@ -8,4 +8,9 @@ class AgedBrie(s: SellInState, q: Int)
   protected override def getPotentialQuality =
     quality + 1
 
+  protected def copy(
+      name: String,
+      sellIn: SellInState,
+      quality: Int
+  ): DomainItem = AgedBrie(sellIn, quality)
 }

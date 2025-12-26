@@ -7,19 +7,14 @@ trait SellInState {
 
 case class Ongoing(var days: Int) extends SellInState {
   def update(f: Int => Int): SellInState = {
-    val newValue = f(days)
-    if (newValue >= 0)
-      days = newValue
-      this
-    else Expired(newValue)
+    SellInState.create(f(days))
   }
   def get: Int = days
 
 }
 case class Expired(var days: Int) extends SellInState {
   def update(f: Int => Int): SellInState = {
-    days = f(days)
-    this
+    SellInState.create(f(days))
   }
 
   def get: Int = days

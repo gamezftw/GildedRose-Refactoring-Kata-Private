@@ -2,7 +2,7 @@ package com.gildedrose.domain
 
 import com.gildedrose.constants._
 
-class BackstagePasses(s: SellInState, q: Int)
+case class BackstagePasses(s: SellInState, q: Int)
     extends DomainItem(ItemConstants.BackstagePasses, s, q) {
 
   protected override def getPotentialQuality = {
@@ -13,4 +13,10 @@ class BackstagePasses(s: SellInState, q: Int)
       case _                    => quality + 1
     }
   }
+
+  protected def copy(
+      name: String,
+      sellIn: SellInState,
+      quality: Int
+  ): DomainItem = BackstagePasses(sellIn, quality)
 }
