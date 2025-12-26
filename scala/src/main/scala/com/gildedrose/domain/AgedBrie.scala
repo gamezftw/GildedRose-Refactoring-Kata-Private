@@ -2,7 +2,7 @@ package com.gildedrose.domain
 
 class AgedBrie(s: SellInState, q: Int) extends DomainItem("Aged Brie", s, q) {
 
-  override def getPotentialQuality =
+  protected override def getPotentialQuality =
     quality + 1
 
 }

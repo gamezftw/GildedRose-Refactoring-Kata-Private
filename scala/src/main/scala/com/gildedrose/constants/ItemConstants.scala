@@ -1,4 +1,4 @@
-package com.gildedrose
+package com.gildedrose.constants
 
 object ItemConstants:
   final val agedBrie = "Aged Brie"

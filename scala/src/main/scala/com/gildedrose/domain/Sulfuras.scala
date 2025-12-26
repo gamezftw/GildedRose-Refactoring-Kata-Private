@@ -5,12 +5,12 @@ class Sulfuras(s: SellInState)
 
   private final val internalMax = 80
 
-  override val maxQuality = internalMax
+  protected override val maxQuality = internalMax
 
-  override def updateSellIn(): Unit = {}
+  protected override def updateSellIn(): Unit = {}
 
-  override def degrade(): Unit = {}
+  protected override def degrade(): Unit = {}
 
-  override def clampedQuality(potentialQuality: Int): Int =
+  protected override def clampedQuality(potentialQuality: Int): Int =
     internalMax
 }

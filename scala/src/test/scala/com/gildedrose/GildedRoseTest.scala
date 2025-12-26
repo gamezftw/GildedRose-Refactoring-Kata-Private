@@ -2,7 +2,7 @@ package com.gildedrose
 
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
-import com.gildedrose.ItemConstants.conjuredMakaCake
+import com.gildedrose.constants.ItemConstants._
 
 class GildedRoseTest extends AnyFlatSpec with Matchers {
 
@@ -42,65 +42,65 @@ class GildedRoseTest extends AnyFlatSpec with Matchers {
   }
 
   it should "givenZSulfurasAndQualityAboveMaxThenQualityIsClamped" in {
-    updateItemOnce(Item(ItemConstants.sulfuras, 5, 81))(0) shouldBe Item(
-      ItemConstants.sulfuras,
+    updateItemOnce(Item(sulfuras, 5, 81))(0) shouldBe Item(
+      sulfuras,
       5,
       80
     )
   }
 
   it should "sulfurasDoesNotDecreaseSellInAndQualityIs80" in {
-    updateItemOnce(Item(ItemConstants.sulfuras, 5, 5))(0) shouldBe Item(
-      ItemConstants.sulfuras,
+    updateItemOnce(Item(sulfuras, 5, 5))(0) shouldBe Item(
+      sulfuras,
       5,
       80
     )
   }
 
   it should "givenAgedBrieSellInIsPositiveThenSellInDecreasesAndQualityIncreases" in {
-    updateItemOnce(Item(ItemConstants.agedBrie, 5, 5))(0) shouldBe Item(
-      ItemConstants.agedBrie,
+    updateItemOnce(Item(agedBrie, 5, 5))(0) shouldBe Item(
+      agedBrie,
       4,
       6
     )
   }
 
   it should "givenAgedBrieSellInIsNegativeThenSellInDecreasesAndQualityIncreases" in {
-    updateItemOnce(Item(ItemConstants.agedBrie, -1, 5))(0) shouldBe Item(
-      ItemConstants.agedBrie,
+    updateItemOnce(Item(agedBrie, -1, 5))(0) shouldBe Item(
+      agedBrie,
       -2,
       6
     )
   }
 
   it should "givenBackstagePassesSellInAreLessThen11ThenSellInDecreasesAndQualityIncreasesBy2" in {
-    updateItemOnce(Item(ItemConstants.backstagePasses, 10, 5))(
+    updateItemOnce(Item(backstagePasses, 10, 5))(
       0
-    ) shouldBe Item(ItemConstants.backstagePasses, 9, 7)
+    ) shouldBe Item(backstagePasses, 9, 7)
   }
 
   it should "givenBackstagePassesSellInAreLessThen6ThenSellInDecreasesAndQualityIncreasesBy3" in {
-    updateItemOnce(Item(ItemConstants.backstagePasses, 5, 5))(
+    updateItemOnce(Item(backstagePasses, 5, 5))(
       0
-    ) shouldBe Item(ItemConstants.backstagePasses, 4, 8)
+    ) shouldBe Item(backstagePasses, 4, 8)
   }
 
   it should "givenBackstagePassesSellInAreLessThen1ThenSellInDecreasesAndQualityDropsTo0" in {
-    updateItemOnce(Item(ItemConstants.backstagePasses, 0, 5))(
+    updateItemOnce(Item(backstagePasses, 0, 5))(
       0
-    ) shouldBe Item(ItemConstants.backstagePasses, -1, 0)
+    ) shouldBe Item(backstagePasses, -1, 0)
   }
 
   it should "givenConjuredManaCakeAndPositiveSellInThenSellInDecreasesAndQualityDegradesTwiceAsFast" in {
-    updateItemOnce(Item(ItemConstants.conjuredMakaCake, 5, 5))(
+    updateItemOnce(Item(conjuredMakaCake, 5, 5))(
       0
-    ) shouldBe Item(ItemConstants.conjuredMakaCake, 4, 3)
+    ) shouldBe Item(conjuredMakaCake, 4, 3)
   }
 
   it should "givenConjuredManaCakeAndNegativeSellInThenSellInDecreasesAndQualityDegradesTwiceAsFast" in {
-    updateItemOnce(Item(ItemConstants.conjuredMakaCake, -1, 5))(
+    updateItemOnce(Item(conjuredMakaCake, -1, 5))(
       0
-    ) shouldBe Item(ItemConstants.conjuredMakaCake, -2, 1)
+    ) shouldBe Item(conjuredMakaCake, -2, 1)
   }
 }
 
@@ -116,9 +116,9 @@ class SetSpec
   val updateItemOnce = Utils.updateItem(1)
   val qualityNotBiggerThen50Cases = Table(
     ("item", "givenSellIn", "giveQuality", "expectedSellIn", "expectedQuality"),
-    (ItemConstants.agedBrie, 5, 50, 4, 50),
-    (ItemConstants.agedBrie, -5, 50, -6, 50),
-    (ItemConstants.backstagePasses, 5, 50, 4, 50)
+    (agedBrie, 5, 50, 4, 50),
+    (agedBrie, -5, 50, -6, 50),
+    (backstagePasses, 5, 50, 4, 50)
   )
 
   property("qualityCanNotBeBiggerThen50") {

@@ -3,30 +3,30 @@ package com.gildedrose.domain
 abstract class DomainItem(
     val name: String,
     var sellIn: SellInState,
-    val initialQuality: Int
+    private val initialQuality: Int
 ) {
   protected val minQuality: Int = 0
   protected val maxQuality: Int = 50
   protected val degradeValue: Int = 1
   var quality: Int = clampedQuality(initialQuality)
 
-  def advanceSellInFn: Int => Int = x => x - 1
+  protected def advanceSellInFn: Int => Int = x => x - 1
 
   def updateQuality(): Unit = {
     updateSellIn()
     degrade()
   }
 
-  def updateSellIn(): Unit = {
+  protected def updateSellIn(): Unit = {
     sellIn = sellIn.update(advanceSellInFn)
   }
 
-  def degrade(): Unit = {
+  protected def degrade(): Unit = {
     val potentialQuality = getPotentialQuality
     quality = clampedQuality(potentialQuality)
   }
 
-  def getPotentialQuality: Int = {
+  protected def getPotentialQuality: Int = {
     val calculatedDegadeValue =
       sellIn match
         case Ongoing(_) => degradeValue
