@@ -7,7 +7,7 @@ case class ConjuredManaCake(s: SellInState, q: Int)
 
   protected override val degradeValue: Int = 2
 
-  protected def copy(
+  protected def clone(
       name: String,
       sellIn: SellInState,
       quality: Int

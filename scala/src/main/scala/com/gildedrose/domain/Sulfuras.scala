@@ -16,7 +16,7 @@ case class Sulfuras(s: SellInState)
   protected override def clampedQuality(potentialQuality: Int): Int =
     internalMax
 
-  protected def copy(
+  protected def clone(
       name: String,
       sellIn: SellInState,
       quality: Int

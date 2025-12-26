@@ -14,7 +14,7 @@ case class BackstagePasses(s: SellInState, q: Int)
     }
   }
 
-  protected def copy(
+  protected def clone(
       name: String,
       sellIn: SellInState,
       quality: Int

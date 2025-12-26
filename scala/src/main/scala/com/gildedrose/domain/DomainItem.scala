@@ -12,10 +12,10 @@ abstract class DomainItem(
   protected val degradeValue: Int = 1
   val quality: Int = clampedQuality(initialQuality)
 
-  protected def copy(
-      name: String,
-      sellIn: SellInState,
-      quality: Int
+  protected def clone(
+      name: String = name,
+      sellIn: SellInState = sellIn,
+      quality: Int = quality
   ): DomainItem
 
   protected def advanceSellInFn: Int => Int = x => x - 1
@@ -25,11 +25,11 @@ abstract class DomainItem(
   }
 
   protected def updateSellIn: DomainItem = {
-    copy(name, sellIn.update(advanceSellInFn), quality)
+    clone(sellIn = sellIn.update(advanceSellInFn))
   }
 
   protected def degrade: DomainItem = {
-    copy(name, sellIn, getPotentialQuality)
+    clone(quality = getPotentialQuality)
   }
 
   protected def getPotentialQuality: Int = {
