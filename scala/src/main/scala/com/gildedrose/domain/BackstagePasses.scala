@@ -1,7 +1,9 @@
 package com.gildedrose.domain
 
+import com.gildedrose.constants._
+
 class BackstagePasses(s: SellInState, q: Int)
-    extends DomainItem("Backstage passes", s, q) {
+    extends DomainItem(ItemConstants.BackstagePasses, s, q) {
 
   protected override def getPotentialQuality = {
     sellIn match {

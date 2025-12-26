@@ -1,7 +1,9 @@
 package com.gildedrose.domain
 
+import com.gildedrose.constants._
+
 class Sulfuras(s: SellInState)
-    extends DomainItem("Sulfuras, Hand of Ragnaros", s, 80) {
+    extends DomainItem(ItemConstants.Sulfuras, s, 80) {
 
   private final val internalMax = 80
 

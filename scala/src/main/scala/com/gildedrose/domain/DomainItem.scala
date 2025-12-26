@@ -1,5 +1,7 @@
 package com.gildedrose.domain
 
+import com.gildedrose.constants.ItemConstants
+
 abstract class DomainItem(
     val name: String,
     var sellIn: SellInState,
@@ -43,12 +45,13 @@ object DomainItem {
   def fromItem(name: String, sellIn: Int, quality: Int): DomainItem = {
     val sellInState = SellInState.create(sellIn)
     name match {
-      case "Aged Brie" => AgedBrie(sellInState, quality)
-      case "Backstage passes to a TAFKAL80ETC concert" =>
+      case ItemConstants.AgedBrie        => AgedBrie(sellInState, quality)
+      case ItemConstants.BackstagePasses =>
         BackstagePasses(sellInState, quality)
-      case "Conjured Mana Cake" => ConjuredManaCake(sellInState, quality)
-      case "Sulfuras, Hand of Ragnaros" => Sulfuras(sellInState)
-      case _                            => OtherItem(name, sellInState, quality)
+      case ItemConstants.ConjuredMakaCake =>
+        ConjuredManaCake(sellInState, quality)
+      case ItemConstants.Sulfuras => Sulfuras(sellInState)
+      case _                      => OtherItem(name, sellInState, quality)
     }
   }
 }
