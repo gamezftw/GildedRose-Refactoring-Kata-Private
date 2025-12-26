@@ -2,7 +2,7 @@ package com.gildedrose.domain
 
 abstract class DomainItem(
     val name: String,
-    var sellIn: Int,
+    var sellIn: SellInState,
     val initialQuality: Int
 ) {
   protected val minQuality: Int = 0
@@ -10,13 +10,15 @@ abstract class DomainItem(
   protected val degradeValue: Int = 1
   var quality: Int = clampedQuality(initialQuality)
 
+  def advanceSellInFn: Int => Int = x => x - 1
+
   def updateQuality(): Unit = {
     updateSellIn()
     degrade()
   }
 
   def updateSellIn(): Unit = {
-    sellIn -= 1
+    sellIn = sellIn.update(advanceSellInFn)
   }
 
   def degrade(): Unit = {
@@ -26,7 +28,9 @@ abstract class DomainItem(
 
   def getPotentialQuality: Int = {
     val calculatedDegadeValue =
-      if (sellIn >= 0) degradeValue else degradeValue * 2
+      sellIn match
+        case Ongoing(_) => degradeValue
+        case Expired(_) => degradeValue * 2
 
     quality - calculatedDegadeValue
   }
@@ -37,13 +41,14 @@ abstract class DomainItem(
 
 object DomainItem {
   def fromItem(name: String, sellIn: Int, quality: Int): DomainItem = {
+    val sellInState = SellInState.create(sellIn)
     name match {
-      case "Aged Brie" => AgedBrie(sellIn, quality)
+      case "Aged Brie" => AgedBrie(sellInState, quality)
       case "Backstage passes to a TAFKAL80ETC concert" =>
-        BackstagePasses(sellIn, quality)
-      case "Conjured Mana Cake"         => ConjuredManaCake(sellIn, quality)
-      case "Sulfuras, Hand of Ragnaros" => Sulfuras(sellIn)
-      case _                            => OtherItem(name, sellIn, quality)
+        BackstagePasses(sellInState, quality)
+      case "Conjured Mana Cake" => ConjuredManaCake(sellInState, quality)
+      case "Sulfuras, Hand of Ragnaros" => Sulfuras(sellInState)
+      case _                            => OtherItem(name, sellInState, quality)
     }
   }
 }

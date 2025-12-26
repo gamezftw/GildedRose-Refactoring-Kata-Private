@@ -30,7 +30,11 @@ class GildedRoseTest extends AnyFlatSpec with Matchers {
   }
 
   it should "givenConjuredManaCakeAndQualityAboveMaxThenQualityIsClampedAndDecreased" in {
-    updateItemOnce(Item(conjuredMakaCake, 5, 52))(0) shouldBe Item(conjuredMakaCake, 4, 48)
+    updateItemOnce(Item(conjuredMakaCake, 5, 52))(0) shouldBe Item(
+      conjuredMakaCake,
+      4,
+      48
+    )
   }
 
   it should "givenZeroQualityAndNoramalItemThenQualityIsNotNegative" in {

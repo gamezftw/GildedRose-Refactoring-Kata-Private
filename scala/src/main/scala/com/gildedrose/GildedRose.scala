@@ -8,7 +8,7 @@ class GildedRose(val items: Array[Item]) {
     items.foreach(i => {
       val domainItem = DomainItem.fromItem(i.name, i.sellIn, i.quality)
       domainItem.updateQuality()
-      i.sellIn = domainItem.sellIn
+      i.sellIn = domainItem.sellIn.get
       i.quality = domainItem.quality
     })
   }
