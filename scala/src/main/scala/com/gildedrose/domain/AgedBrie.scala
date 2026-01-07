@@ -5,8 +5,7 @@ import com.gildedrose.constants._
 case class AgedBrie(s: SellInState, q: Int)
     extends DomainItem(ItemConstants.AgedBrie, s, q) {
 
-  protected override def getPotentialQuality =
-    quality + 1
+  protected override val degradeOperation: Int => Int => Int = x => y => x + y
 
   protected def clone(
       name: String,

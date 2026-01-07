@@ -9,8 +9,12 @@ abstract class DomainItem(
 ) {
   protected val minQuality: Int = 0
   protected val maxQuality: Int = 50
-  protected val degradeValue: Int = 1
+
+  protected val baseDegradeValue: Int = 1
+
   val quality: Int = clampedQuality(initialQuality)
+
+  protected val degradeOperation: Int => Int => Int = x => y => x - y
 
   protected def clone(
       name: String = name,
@@ -18,7 +22,7 @@ abstract class DomainItem(
       quality: Int = quality
   ): DomainItem
 
-  protected def advanceSellInFn: Int => Int = x => x - 1
+  protected val advanceSellInFn: Int => Int = x => x - 1
 
   def updateQuality: DomainItem = {
     updateSellIn.degrade
@@ -32,13 +36,13 @@ abstract class DomainItem(
     clone(quality = getPotentialQuality)
   }
 
-  protected def getPotentialQuality: Int = {
-    val calculatedDegadeValue =
-      sellIn match
-        case Ongoing(_) => degradeValue
-        case Expired(_) => degradeValue * 2
+  protected def getPotentialQuality =
+    degradeOperation(quality)(getAdjustedDegradeValue)
 
-    quality - calculatedDegadeValue
+  protected def getAdjustedDegradeValue: Int = {
+    sellIn match
+      case Ongoing(_) => baseDegradeValue
+      case Expired(_) => baseDegradeValue * 2
   }
 
   protected def clampedQuality(potentialQuality: Int): Int =

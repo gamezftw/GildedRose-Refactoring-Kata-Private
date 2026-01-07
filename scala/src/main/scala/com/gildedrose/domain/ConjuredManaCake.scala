@@ -5,7 +5,7 @@ import com.gildedrose.constants._
 case class ConjuredManaCake(s: SellInState, q: Int)
     extends DomainItem(ItemConstants.ConjuredMakaCake, s, q) {
 
-  protected override val degradeValue: Int = 2
+  override val baseDegradeValue: Int = 2
 
   protected def clone(
       name: String,

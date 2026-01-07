@@ -48,7 +48,7 @@ class GildedRoseTest extends AnyFlatSpec with Matchers {
       48
     )
   }
-  it should "camp quality and decrease twice when given quality is above max and zero sellIn" in {
+  it should "clamp quality and decrease twice when given quality is above max and zero sellIn" in {
     updateItemOnce(Item(ItemConstants.ConjuredMakaCake, 0, 52))(
       0
     ) shouldBe Item(
@@ -56,6 +56,18 @@ class GildedRoseTest extends AnyFlatSpec with Matchers {
       -1,
       46
     )
+  }
+
+  it should "decrease quality by two when sellIn is positive" in {
+    updateItemOnce(Item(ItemConstants.ConjuredMakaCake, 5, 5))(
+      0
+    ) shouldBe Item(ItemConstants.ConjuredMakaCake, 4, 3)
+  }
+
+  it should "decrease quality by four when sellIn is negative" in {
+    updateItemOnce(Item(ItemConstants.ConjuredMakaCake, -1, 5))(
+      0
+    ) shouldBe Item(ItemConstants.ConjuredMakaCake, -2, 1)
   }
 
   behavior of "Sulfuras"
@@ -84,11 +96,11 @@ class GildedRoseTest extends AnyFlatSpec with Matchers {
     )
   }
 
-  it should "increases quality when sellIn is negative" in {
+  it should "increases quality twice when sellIn is negative" in {
     updateItemOnce(Item(ItemConstants.AgedBrie, -1, 5))(0) shouldBe Item(
       ItemConstants.AgedBrie,
       -2,
-      6
+      7
     )
   }
 
@@ -109,19 +121,6 @@ class GildedRoseTest extends AnyFlatSpec with Matchers {
     updateItemOnce(Item(ItemConstants.BackstagePasses, 0, 5))(
       0
     ) shouldBe Item(ItemConstants.BackstagePasses, -1, 0)
-  }
-
-  behavior of "Backstage passes"
-  it should "quality decreases by two when sellIn is positive" in {
-    updateItemOnce(Item(ItemConstants.ConjuredMakaCake, 5, 5))(
-      0
-    ) shouldBe Item(ItemConstants.ConjuredMakaCake, 4, 3)
-  }
-
-  it should "quality decreases by two when sellIn is negative" in {
-    updateItemOnce(Item(ItemConstants.ConjuredMakaCake, -1, 5))(
-      0
-    ) shouldBe Item(ItemConstants.ConjuredMakaCake, -2, 1)
   }
 }
 
