@@ -1,7 +1,5 @@
 package com.gildedrose
 
-import com.gildedrose.domain._
-
 object Main {
   def main(args: Array[String]): Unit = {
     val items = Array[Item](
