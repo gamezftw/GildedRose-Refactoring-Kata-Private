@@ -17,9 +17,9 @@ class GildedRoseApprovalTest {
 
     val items: Array[Item] = Array(Item("foo", 0, 0))
     val app: GildedRose = new GildedRose(items)
-    app.updateQuality()
+    val updatedItems = app.updateQuality(2)
 
-    Approvals.verifyAll("Items", items)
+    Approvals.verifyAll("Items", updatedItems.last._2)
   }
 
   @Test

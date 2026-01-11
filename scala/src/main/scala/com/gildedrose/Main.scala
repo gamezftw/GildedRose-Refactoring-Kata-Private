@@ -21,14 +21,16 @@ object Main {
 
     System.out.println("OMGHAI!")
 
-    for (i <- 0 until days) {
+    val updatedItems = app.updateQuality(days)
+
+    updatedItems.foreach(itemsForDays => {
+      val (i, dailyItems) = itemsForDays
       System.out.println("-------- day " + i + " --------")
       System.out.println("name, sellIn, quality")
-      for (item <- items) {
+      for (item <- dailyItems) {
         System.out.println(item.name + ", " + item.sellIn + ", " + item.quality)
       }
       System.out.println()
-      app.updateQuality()
-    }
+    })
   }
 }
