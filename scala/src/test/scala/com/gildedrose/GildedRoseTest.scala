@@ -165,8 +165,7 @@ object Utils {
   ): Array[Item] = {
     val items = Array[Item](givenItem)
     val app = new GildedRose(items)
-    app.updateQuality(numberOfUpdates + 1).last._2
-    // Updatable.updateQuality(items)
+    Updatable.updateQuality(items)
   }
 
 }
